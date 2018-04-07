@@ -1,5 +1,8 @@
 # Navigate Miami
 
+Deployment: [Navigate Miami](http://navigatemiami.herokuapp.com)
+
+
 ## Status
 
 - Gathering requirements and distilling the scope into user stories.
