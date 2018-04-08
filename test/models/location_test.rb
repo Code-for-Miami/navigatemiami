@@ -33,4 +33,10 @@ class LocationTest < ActiveSupport::TestCase
     assert_equal("can't be blank", location.errors[:zip][0])
   end
 
+  test 'should not save location without state' do
+    location = Location.new
+    location.save
+
+    assert_equal("can't be blank", location.errors[:state][0])
+  end
 end
