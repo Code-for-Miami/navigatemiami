@@ -1,4 +1,5 @@
 # Navigate Miami
+[![Build Status](https://travis-ci.org/Code-for-Miami/navigatemiami.svg?branch=master)](https://travis-ci.org/Code-for-Miami/navigatemiami)
 
 Deployment: [Navigate Miami](http://navigatemiami.herokuapp.com)
 
