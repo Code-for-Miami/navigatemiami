@@ -1,12 +1,18 @@
 /* eslint no-console: 0 */
+
 // Run this example by adding <%= javascript_pack_tag 'hello_vue' %> (and
 // <%= stylesheet_pack_tag 'hello_vue' %> if you have styles in your component)
 // to the head of your layout file,
 // like app/views/layouts/application.html.erb.
 // All it does is render <div>Hello Vue</div> at the bottom of the page.
 
-import Vue from 'vue'
+import Vue from 'vue/dist/vue.esm'
+import Vuetify from 'vuetify'
 import App from '../app.vue'
+
+Vue.use(Vuetify)
+
+Vue.config.productionTip = false;
 
 document.addEventListener('DOMContentLoaded', () => {
   const el = document.body.appendChild(document.createElement('hello'));
@@ -14,8 +20,6 @@ document.addEventListener('DOMContentLoaded', () => {
     el,
     render: h => h(App)
   });
-
-  console.log(app)
 });
 
 
@@ -33,7 +37,6 @@ document.addEventListener('DOMContentLoaded', () => {
 // </div>
 
 
-// import Vue from 'vue/dist/vue.esm'
 // import App from '../app.vue'
 //
 // document.addEventListener('DOMContentLoaded', () => {
