@@ -1,22 +1,85 @@
 <template>
-  <div id="app">
-    <p>{{ message }}</p>
-  </div>
+  <v-app>
+    <v-navigation-drawer
+            v-model="drawer"
+            absolute
+            app
+            class="above-map"
+    >
+      <v-list three-line>
+        <v-list-group
+                v-for="cat in cats"
+                :key="cat.name"
+                :prepend-icon="cat.icon"
+                no-action
+        >
+          <v-list-tile slot="activator">
+            <v-list-tile-content>
+              {{ cat.name }}
+            </v-list-tile-content>
+          </v-list-tile>
+          <v-list-tile :key="item.name" v-for="item in cat.items"
+                       @click="bus.$emit('pickLocation', item); drawer = false"
+          >
+            <loc-tile v-bind="item" />
+          </v-list-tile>
+        </v-list-group>
+      </v-list>
+    </v-navigation-drawer>
+    <v-toolbar app color="white">
+      <v-toolbar-side-icon @click.stop="drawer = !drawer"></v-toolbar-side-icon>
+      <v-spacer />
+      <v-toolbar-title>
+        Navigate Miami
+      </v-toolbar-title>
+    </v-toolbar>
+    <v-content>
+      <leaflet-map v-bind="{ zoom, center, coords }"/>
+    </v-content>
+  </v-app>
 </template>
 
 <script>
-export default {
-  data: function () {
-    return {
-      message: "Hello Vue!"
+    import LeafletMap from './components/LeafletMap.vue'
+    import { locations, categories } from './data'
+    import LocTile from './components/LocationTile.vue'
+    import bus from './bus'
+
+    export default {
+        name: 'app',
+        components: {
+            LeafletMap,
+            LocTile,
+        },
+        data() {
+            return {
+                bus,
+                drawer: false,
+                categories,
+                locations,
+                center: [25.766, -80.195],
+                coords: [
+                    // [25.776, -80.196],
+                    // [25.731, -80.236],
+                ],
+                zoom: 13,
+            }
+        },
+        computed: {
+            cats() {
+                return this.categories.map(cat => {
+                    cat.items = this.locations.filter(loc => {
+                        return loc.categories.indexOf(cat.name) >= 0
+                    })
+                    return cat
+                })
+            },
+        },
     }
-  }
-}
 </script>
 
-<style scoped>
-p {
-  font-size: 2em;
-  text-align: center;
-}
+<style scoped lang="scss">
+  .above-map {
+    z-index: 2000;
+  }
 </style>
